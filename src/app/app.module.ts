@@ -3,10 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { InstallationsComponent } from './components/installations/installations.component';
+import { BookingComponent } from './components/booking/booking.component';
+import { FacilitiesComponent } from './components/facilities/facilities.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    InstallationsComponent,
+    BookingComponent,
+    FacilitiesComponent
   ],
   imports: [
     BrowserModule,

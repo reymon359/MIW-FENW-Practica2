@@ -93,9 +93,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/libraries/bootstrap/bootstrap-normal.min.css",
+              "src/assets/libraries/bootstrap/bootstrap-light.min.css",
+              "src/assets/libraries/bootstrap/bootstrap-dark.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/libraries/jquery/jquery-3.3.1.slim.min.js",
+              "src/assets/libraries/popper/popper.min.js",
+              "src/assets/libraries/bootstrap/bootstrap.min.js"
+            ]
           }
         },
         "lint": {
