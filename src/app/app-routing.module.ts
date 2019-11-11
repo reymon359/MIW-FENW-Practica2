@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, ExtraOptions} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
@@ -18,8 +18,16 @@ const routes: Routes = [
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
+const routerOptions: ExtraOptions = {
+  useHash: true,
+  anchorScrolling: 'enabled',
+};
+
+// then just import your RouterModule with these options
+
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
