@@ -9,6 +9,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { InstallationsComponent } from './components/installations/installations.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { FacilitiesComponent } from './components/facilities/facilities.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FacilitiesComponent } from './components/facilities/facilities.componen
     RegisterComponent,
     InstallationsComponent,
     BookingComponent,
-    FacilitiesComponent
+    FacilitiesComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
