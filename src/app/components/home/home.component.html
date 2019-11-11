@@ -1,1 +1,108 @@
-<p>home works!</p>
+
+
+<div id="carouselExampleCaptions" class="carousel slide mb-5" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active align-items-center"
+         style="background: url('./../../../assets/images/index/index-carousel-1.jpg') center bottom no-repeat rgb(21, 21, 21);">
+<!--         style="background: url('./../assets/images/index/index-carousel-1.jpg') center bottom no-repeat rgb(21, 21, 21);">-->
+      <div class="intro-overlay"></div>
+      <div class="carousel-caption  d-md-block mb-4 ">
+        <p class="carousel-heading">Juega al pádel.</p>
+        <p class="lead">Practica este deporte con tus amigos en cualquiera de nuestras pistas</p>
+        <a class="btn btn-primary mt-2" [routerLink]="['/login']" role="button">Login</a>
+      </div>
+    </div>
+    <div class="carousel-item "
+         style="background: url('./../../../assets/images/index/index-carousel-2.jpg') center bottom no-repeat rgb(21, 21, 21);">
+      <div class="intro-overlay"></div>
+      <div class="carousel-caption  d-md-block mb-4">
+        <p class="carousel-heading">Reserva una pista.</p>
+        <p class="lead">Puedes reservar y jugar en cualquiera de las pistas del centro siempre y cuando esten
+          disponibles</p>
+        <a class="btn btn-primary mt-2" [routerLink]="['/booking']" role="button">Reservar</a>
+      </div>
+    </div>
+    <div class="carousel-item "
+         style="background: url('./../../../assets/images/index/index-carousel-3.jpg') center bottom no-repeat rgb(21, 21, 21);">
+      <div class="intro-overlay"></div>
+      <div class="carousel-caption  d-md-block mb-4">
+        <p class="carousel-heading">Alquila equipación.</p>
+        <p class="lead">Si necesitas equipación para jugar puedes alquilarla en recepción.</p>
+        <a class="btn btn-primary mt-2" [routerLink]="['/facilities.html#alquiler']" role="button">Más info.</a>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="container ">
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Apuntate a clases. <span
+        class="text-muted">Te lo pasarás en grande.</span></h2>
+      <p class="lead">El conjunto de monitores más cualificados se encargará de darte la formación en cuanto a
+        técnica requerida en este deporte. Las clases prácticas te permitirán interiorizar los movimientos
+        adecuados como si fuesen naturales. <br> Las clases colectivas convierten las clases en un espacio
+        dinámico en el que jugar se convierte en una actividad placentera y divertida.</p>
+      <a class="stretched-link mt-2" [routerLink]="['/facilities.html#clases']" role="button">Más información.</a>
+
+    </div>
+    <div class="col-md-5">
+      <div class="featurette-image rounded shadow"
+           style=" background: url('./../../../assets/images/index/index-clases.jpg')"></div>
+    </div>
+  </div>
+  <br><br>
+
+  <div class="row featurette">
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading">Entrenamientos personalizados. <span class="text-muted">Adaptados a tus necesidades.</span>
+      </h2>
+      <p class="lead">Si te sientes un campeón, de verdad lo eres o simplemente quieres avanzar rapidamente en la
+        técnica que rodea a este deporte te podemos configurar sesiones de entrenamiento a tu medida con un
+        entrenador personal que se encargará de:</p>
+      <ul style=" font-weight: 300;  ">
+        <li>Enseñarte la técnica adecuada para mejorar tus golpes.</li>
+        <li>Enseñarte a combinar la potencia con la técnica.</li>
+        <li>Mostrarte como mejorar el rendimiento en equipo.</li>
+        <li>Explicarte como utilizar la presión de los campeonatos en tu beneficio.</li>
+      </ul>
+    </div>
+    <div class="col-md-5">
+      <div class="featurette-image rounded shadow"
+           style=" background: url('./../../../assets/images/index/index-entrenamiento.jpg')"></div>
+    </div>
+  </div>
+  <br><br>
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Compite en campeonatos <span
+        class="text-muted">Pon a prueba tus habilidades</span></h2>
+      <p class="lead">El club organiza campeonatos periódicos en los que te puedes divertir al mismo tiempo que
+        mejoras en el deporte. Tenemos campeonatos de un dia, de fin de semana y ligas regulares. Puedes
+        participar en los torneos masculinos, femeninos y mixtos.</p>
+      <a class="stretched-link mt-2" [routerLink]="['/facilities.html#campeonato']" role="button">Más información.</a>
+
+    </div>
+    <div class="col-md-5">
+      <div class="featurette-image rounded shadow"
+           style=" background: url('./../../../assets/images/index/index-campeonato.jpg')"></div>
+    </div>
+  </div>
+  <br><br>
+
+
+</div>
