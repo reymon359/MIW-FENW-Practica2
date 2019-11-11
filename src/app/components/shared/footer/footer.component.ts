@@ -8,10 +8,11 @@ import {Component, OnInit} from '@angular/core';
 export class FooterComponent implements OnInit {
 
   constructor() {
-    this.setFooterDate();
+
   }
 
   ngOnInit() {
+    this.setFooterDate();
   }
 
   setFooterDate() {
