@@ -16,10 +16,38 @@ export class RegisterComponent implements OnInit {
         [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+      password1: new FormControl('', [Validators.required
+        , Validators.minLength(6)]),
+      password2: new FormControl('', Validators.required),
     });
+
+    // Passwords
+    this.registerForm.get('password2').setValidators([
+      Validators.required,
+      this.noSame.bind(this.registerForm)
+    ]);
+
+    // Detect userId changes
+    this.registerForm.get('userId').valueChanges
+      .subscribe(data => {
+        console.log('valueChanges userId:', data);
+      });
+
+
   }
 
   ngOnInit() {
   }
+
+  // Custom validator for passwords
+  noSame(control: FormControl): { [s: string]: boolean } {
+    const registerForm: any = this;
+
+    if (control.value !== registerForm.get('password1').value) {
+      return {nosame: true};
+    }
+    return null;
+  }
+
 
 }
