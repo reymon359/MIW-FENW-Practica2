@@ -1,1 +1,39 @@
-<p>register works!</p>
+<div class="text-center form-container py-5">
+  <form [formGroup]="registerForm" id="registerForm" class=" form-signin p-3 m-auto w-100">
+    <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
+    <label for="userId" class="sr-only">ID Usuario</label>
+    <input type="text" id="userId" class="form-control mb-1 p-2 h-auto"
+           placeholder="ID Usuario" autofocus="" formControlName="userId"
+           [ngClass]="{'is-invalid': registerForm.get('userId').errors?.required ||
+    registerForm.get('userId').errors?.minlength, 'is-valid': (!registerForm.get('userId').errors?.required
+    && !registerForm.get('userId').errors?.minlength)}">
+    <div *ngIf="registerForm.get('userId').errors?.required" class="form-control-feedback text-danger">
+      El ID de Usuario es requerido.
+    </div>
+    <div *ngIf="registerForm.get('userId').errors?.minlength" class="form-control-feedback text-danger">
+      Mínimo 3 caracteres.
+    </div>
+    <!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
+
+    <!--    <label for="inputEmail" class="sr-only">Email</label>-->
+    <!--    <input type="email" id="inputEmail" class="form-control mb-3 p-2 h-auto"-->
+    <!--           placeholder="Email" required=""-->
+    <!--           autofocus="">-->
+    <!--    <label for="inputPassword" class="sr-only">Contraseña</label>-->
+    <!--    <input onkeyup="checkPasswordsMatch();" type="password" id="inputPassword"-->
+    <!--           class="form-control mb-3 p-2 h-auto " placeholder="Contraseña"-->
+    <!--           required="">-->
+    <!--    <label for="inputRepeatPassword" class="sr-only">Repita la Contraseña</label>-->
+    <!--    <input onkeyup="checkPasswordsMatch();" type="password" id="inputRepeatPassword"-->
+    <!--           class="form-control  mb-3 p-2 h-auto " placeholder="Repita la Contraseña" required="">-->
+    <!--    <div id="alertPasswords" role="alert">Las contraseñas <b>coinciden!</b></div>-->
+    <!--    <label for="inputBirthdate" class="sr-only">Fecha de nacimiento</label>-->
+    <!--    <input type="date" id="inputBirthdate" class="form-control p-2 h-auto " placeholder="Fecha de nacimiento">-->
+    <!--    <button id="registerButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Registro-->
+    <!--    </button>-->
+    <!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
+    <p>¿Tienes ya una cuenta? <a href="./login.html">Inicia Sesión!</a></p>
+  </form>
+</div>
+
