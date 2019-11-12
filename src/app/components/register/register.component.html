@@ -3,23 +3,26 @@
     <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
     <label for="userId" class="sr-only">ID Usuario</label>
-    <input type="text" id="userId" class="form-control mb-1 p-2 h-auto"
+    <input type="text" id="userId" class="form-control my-2 p-2 h-auto"
            placeholder="ID Usuario" autofocus="" formControlName="userId"
-           [ngClass]="{'is-invalid': registerForm.get('userId').errors?.required ||
-    registerForm.get('userId').errors?.minlength, 'is-valid': (!registerForm.get('userId').errors?.required
-    && !registerForm.get('userId').errors?.minlength)}">
+           [ngClass]="registerForm.get('userId').valid ? 'is-valid': 'is-invalid'">
     <div *ngIf="registerForm.get('userId').errors?.required" class="form-control-feedback text-danger">
       El ID de Usuario es requerido.
     </div>
     <div *ngIf="registerForm.get('userId').errors?.minlength" class="form-control-feedback text-danger">
       Mínimo 3 caracteres.
     </div>
-    <!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
 
-    <!--    <label for="inputEmail" class="sr-only">Email</label>-->
-    <!--    <input type="email" id="inputEmail" class="form-control mb-3 p-2 h-auto"-->
-    <!--           placeholder="Email" required=""-->
-    <!--           autofocus="">-->
+    <label for="email" class="sr-only">Email</label>
+    <input type="email" id="email" class="form-control my-2 p-2 h-auto"
+           placeholder="Email" formControlName="email"
+           [ngClass]="registerForm.get('email').valid ? 'is-valid': 'is-invalid'">
+    <div *ngIf="registerForm.get('email').errors?.required" class="form-control-feedback text-danger">
+      El Email es requerido.
+    </div>
+    <div *ngIf="registerForm.get('email').errors?.pattern" class="form-control-feedback text-danger">
+      Introduce un email v&aacute;lido
+    </div>
     <!--    <label for="inputPassword" class="sr-only">Contraseña</label>-->
     <!--    <input onkeyup="checkPasswordsMatch();" type="password" id="inputPassword"-->
     <!--           class="form-control mb-3 p-2 h-auto " placeholder="Contraseña"-->
