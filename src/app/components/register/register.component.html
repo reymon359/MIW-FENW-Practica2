@@ -1,5 +1,6 @@
 <div class="text-center form-container py-5">
-  <form [formGroup]="registerForm" id="registerForm" class=" form-signin p-3 m-auto w-100">
+  <form [formGroup]="registerForm"   (ngSubmit)="submitRegisterForm()"
+        id="registerForm" class=" form-signin p-3 m-auto w-100">
     <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
 
@@ -54,9 +55,9 @@
            [ngClass]="{'is-valid': registerForm.get('password2').valid , 'is-invalid':
           !registerForm.get('password2').valid  && (registerForm.get('password2').dirty
           || registerForm.get('password2').touched)}">
-    <div
-      *ngIf="!registerForm.get('password2').valid  && (registerForm.get('password2').dirty || registerForm.get('password2').touched) "
-      class="text-danger"> Las contraseñas no coinciden
+    <div *ngIf="!registerForm.get('password2').valid  &&
+      (registerForm.get('password2').dirty || registerForm.get('password2').touched) "
+         class="text-danger"> Las contraseñas no coinciden
     </div>
 
     <label for="birthDate" class="sr-only">Fecha de nacimiento</label>
@@ -66,13 +67,15 @@
            [ngClass]="{'is-valid': registerForm.get('birthDate').valid , 'is-invalid':
           !registerForm.get('birthDate').valid  && (registerForm.get('birthDate').dirty
           || registerForm.get('birthDate').touched)}">
+    <div *ngIf="!registerForm.get('birthDate').valid  &&
+    (registerForm.get('birthDate').dirty || registerForm.get('birthDate').touched) "
+         class="text-danger"> La fecha introducida no es válida.
+    </div>
 
-    <button id="registerButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Registro
+    <button  [disabled]="!registerForm.valid" class="btn btn-primary btn-block my-3" type="submit" >Registro
     </button>
 
-
-    <!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
-    <p>¿Tienes ya una cuenta? <a href="./login.html">Inicia Sesión!</a></p>
+    <p>¿Tienes ya una cuenta? <a  [routerLink]="['/login']">Inicia Sesión!</a></p>
   </form>
 </div>
 

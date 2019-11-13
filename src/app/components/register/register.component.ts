@@ -71,4 +71,10 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
+  submitRegisterForm() {
+    console.log(this.registerForm.value);
+    console.log(this.registerForm);
+    this.registerForm.reset();
+  }
+
 }
