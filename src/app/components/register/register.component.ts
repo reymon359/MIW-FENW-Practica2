@@ -18,8 +18,8 @@ export class RegisterComponent implements OnInit {
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       password1: new FormControl('', [Validators.required
         , Validators.minLength(6)]),
-      password2: new FormControl('', Validators.required),
-      birthDate: new FormControl('', Validators.required),
+      password2: new FormControl(),
+      birthDate: new FormControl()
     });
 
     // Passwords
@@ -28,11 +28,19 @@ export class RegisterComponent implements OnInit {
       this.noSame.bind(this.registerForm)
     ]);
 
+    // Birthdate
+    this.registerForm.get('birthDate').setValidators([
+      Validators.required,
+      this.noValidBirthdate.bind(this.registerForm)
+
+    ]);
+
     // Detect userId changes
     this.registerForm.get('userId').valueChanges
       .subscribe(data => {
         console.log('valueChanges userId:', data);
       });
+
     this.registerForm.get('userId').statusChanges
       .subscribe(data => {
         console.log('statusChanges userId:', data);
@@ -46,12 +54,21 @@ export class RegisterComponent implements OnInit {
   // Custom validator for passwords
   noSame(control: FormControl): { [s: string]: boolean } {
     const registerForm: any = this;
-
     if (control.value !== registerForm.get('password1').value) {
       return {nosame: true};
     }
     return null;
   }
 
+  // Custom validator for birthdate
+  noValidBirthdate(control: FormControl): { [s: string]: boolean } {
+    const minBirthDate = new Date('1900-01-01').getTime();
+    const userBirthDate = new Date(control.value).getTime();
+    const maxBirthDate = new Date().getTime();
+    if (userBirthDate > maxBirthDate || userBirthDate < minBirthDate) {
+      return {novalid: true};
+    }
+    return null;
+  }
 
 }

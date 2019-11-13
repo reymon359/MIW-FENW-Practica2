@@ -62,8 +62,10 @@
     <label for="birthDate" class="sr-only">Fecha de nacimiento</label>
     <input type="text" id="birthDate" class="form-control my-2 p-2 h-auto"
            placeholder="Fecha de nacimiento" onfocus="(this.type='date')"
-           formControlName="birthDate" [ngClass]="registerForm.get('birthDate').valid ? 'is-valid': 'is-invalid'">
-
+           formControlName="birthDate"
+           [ngClass]="{'is-valid': registerForm.get('birthDate').valid , 'is-invalid':
+          !registerForm.get('birthDate').valid  && (registerForm.get('birthDate').dirty
+          || registerForm.get('birthDate').touched)}">
 
     <button id="registerButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Registro
     </button>
