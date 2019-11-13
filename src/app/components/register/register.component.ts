@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../services/user/user.service';
 
 
 @Component({
@@ -8,9 +9,16 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styles: []
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  private registerForm: FormGroup;
 
-  constructor() {
+  private user: any = {
+    userId: '',
+    email: '',
+    password: '',
+    birthdate: null
+  };
+
+  constructor(private userService: UserService) {
     this.registerForm = new FormGroup({
       userId: new FormControl('',
         [Validators.required, Validators.minLength(3)]),
@@ -19,7 +27,7 @@ export class RegisterComponent implements OnInit {
       password1: new FormControl('', [Validators.required
         , Validators.minLength(6)]),
       password2: new FormControl(),
-      birthDate: new FormControl()
+      birthdate: new FormControl()
     });
 
     // Passwords
@@ -29,7 +37,7 @@ export class RegisterComponent implements OnInit {
     ]);
 
     // Birthdate
-    this.registerForm.get('birthDate').setValidators([
+    this.registerForm.get('birthdate').setValidators([
       Validators.required,
       this.noValidBirthdate.bind(this.registerForm)
 
@@ -73,8 +81,14 @@ export class RegisterComponent implements OnInit {
 
   submitRegisterForm() {
     console.log(this.registerForm.value);
+    this.registerForm.value.birthdate = new Date(this.registerForm.value.birthdate).getTime();
+    console.log(this.registerForm.value);
     console.log(this.registerForm);
-    this.registerForm.reset();
+    this.userService.create(this.registerForm.value)
+      .subscribe((data: any) => {
+        console.log(data);
+        // this.registerForm.reset();
+      }, (error) => console.error(error));
   }
 
 }

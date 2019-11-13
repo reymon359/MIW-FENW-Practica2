@@ -60,15 +60,15 @@
          class="text-danger"> Las contraseñas no coinciden
     </div>
 
-    <label for="birthDate" class="sr-only">Fecha de nacimiento</label>
-    <input type="text" id="birthDate" class="form-control my-2 p-2 h-auto"
+    <label for="birthdate" class="sr-only">Fecha de nacimiento</label>
+    <input type="text" id="birthdate" class="form-control my-2 p-2 h-auto"
            placeholder="Fecha de nacimiento" onfocus="(this.type='date')"
-           formControlName="birthDate"
-           [ngClass]="{'is-valid': registerForm.get('birthDate').valid , 'is-invalid':
-          !registerForm.get('birthDate').valid  && (registerForm.get('birthDate').dirty
-          || registerForm.get('birthDate').touched)}">
-    <div *ngIf="!registerForm.get('birthDate').valid  &&
-    (registerForm.get('birthDate').dirty || registerForm.get('birthDate').touched) "
+           formControlName="birthdate"
+           [ngClass]="{'is-valid': registerForm.get('birthdate').valid , 'is-invalid':
+          !registerForm.get('birthdate').valid  && (registerForm.get('birthdate').dirty
+          || registerForm.get('birthdate').touched)}">
+    <div *ngIf="!registerForm.get('birthdate').valid  &&
+    (registerForm.get('birthdate').dirty || registerForm.get('birthdate').touched) "
          class="text-danger"> La fecha introducida no es válida.
     </div>
 
