@@ -6,37 +6,62 @@
     <label for="userId" class="sr-only">ID Usuario</label>
     <input type="text" id="userId" class="form-control my-2 p-2 h-auto"
            placeholder="ID Usuario" autofocus="" formControlName="userId"
-           [ngClass]="registerForm.get('userId').valid ? 'is-valid': 'is-invalid'">
-    <div *ngIf="registerForm.get('userId').errors?.required" class="text-danger"> El ID de Usuario es requerido.</div>
-    <div *ngIf="registerForm.get('userId').errors?.minlength" class="text-danger"> Mínimo 3 caracteres</div>
+           [ngClass]="{'is-valid': registerForm.get('userId').valid ,  'is-invalid':
+          (!registerForm.get('userId').valid  && (registerForm.get('userId').dirty || registerForm.get('userId').touched))}">
+    <div
+      *ngIf="registerForm.get('userId').errors?.required  && (registerForm.get('userId').dirty || registerForm.get('userId').touched) "
+      class="text-danger"> El ID de Usuario es requerido.
+    </div>
+    <div
+      *ngIf="registerForm.get('userId').errors?.minlength && (registerForm.get('userId').dirty || registerForm.get('userId').touched) "
+      class="text-danger"> Mínimo 3 caracteres
+    </div>
 
     <label for="email" class="sr-only">Email</label>
     <input type="email" id="email" class="form-control my-2 p-2 h-auto"
            placeholder="Email" formControlName="email"
-           [ngClass]="registerForm.get('email').valid ? 'is-valid': 'is-invalid'">
-    <div *ngIf="registerForm.get('email').errors?.required" class="text-danger"> El Email es requerido.</div>
-    <div *ngIf="registerForm.get('email').errors?.pattern" class="text-danger"> Introduce un email v&aacute;lido</div>
+           [ngClass]="registerForm.get('email').valid  && (registerForm.get('email').dirty || registerForm.get('email').touched) ? 'is-valid': 'is-invalid'">
+    <div
+      *ngIf="registerForm.get('email').errors?.required && (registerForm.get('email').dirty || registerForm.get('email').touched) "
+      class="text-danger"> El Email es requerido.
+    </div>
+    <div
+      *ngIf="registerForm.get('email').errors?.pattern && (registerForm.get('email').dirty || registerForm.get('email').touched) "
+      class="text-danger"> Introduce un email v&aacute;lido
+    </div>
 
     <label for="password1" class="sr-only">Contraseña</label>
     <input type="password" id="password1" class="form-control my-2 p-2 h-auto"
            placeholder="Contraseña" formControlName="password1"
            [ngClass]="registerForm.get('password1').valid ? 'is-valid': 'is-invalid'">
-    <div *ngIf="registerForm.get('password1').errors?.required" class="text-danger"> La contraseña es requerida.</div>
-    <div *ngIf="registerForm.get('password1').errors?.minlength" class="text-danger"> Mínimo 6 caracteres.</div>
+    <div
+      *ngIf="registerForm.get('password1').errors?.required && (registerForm.get('password1').dirty || registerForm.get('password1').touched) "
+      class="text-danger"> La contraseña es requerida.
+    </div>
+    <div
+      *ngIf="registerForm.get('password1').errors?.minlength && (registerForm.get('password1').dirty || registerForm.get('password1').touched) "
+      class="text-danger"> Mínimo 6 caracteres.
+    </div>
 
     <label for="password2" class="sr-only">Repita la Contraseña</label>
     <input type="password" id="password2" class="form-control my-2 p-2 h-auto"
            placeholder="Repita la Contraseña" formControlName="password2"
            [ngClass]="registerForm.get('password2').valid ? 'is-valid': 'is-invalid'">
-    <div *ngIf="!registerForm.get('password2').valid" class="text-danger"> Las contraseñas no coinciden</div>
+    <div
+      *ngIf="!registerForm.get('password2').valid  && (registerForm.get('password2').dirty || registerForm.get('password2').touched) "
+      class="text-danger"> Las contraseñas no coinciden
+    </div>
+
+    <label for="birthDate" class="sr-only">Fecha de nacimiento</label>
+    <input type="text" id="birthDate" class="form-control my-2 p-2 h-auto"
+           placeholder="Fecha de nacimiento" onfocus="(this.type='date')"
+           formControlName="birthDate" [ngClass]="registerForm.get('birthDate').valid ? 'is-valid': 'is-invalid'">
 
 
+    <button id="registerButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Registro
+    </button>
 
-    <!--    <div id="alertPasswords" role="alert">Las contraseñas <b>coinciden!</b></div>-->
-    <!--    <label for="inputBirthdate" class="sr-only">Fecha de nacimiento</label>-->
-    <!--    <input type="date" id="inputBirthdate" class="form-control p-2 h-auto " placeholder="Fecha de nacimiento">-->
-    <!--    <button id="registerButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Registro-->
-    <!--    </button>-->
+
     <!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
     <p>¿Tienes ya una cuenta? <a href="./login.html">Inicia Sesión!</a></p>
   </form>

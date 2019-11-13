@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
       password1: new FormControl('', [Validators.required
         , Validators.minLength(6)]),
       password2: new FormControl('', Validators.required),
+      birthDate: new FormControl('', Validators.required),
     });
 
     // Passwords
@@ -32,7 +33,10 @@ export class RegisterComponent implements OnInit {
       .subscribe(data => {
         console.log('valueChanges userId:', data);
       });
-
+    this.registerForm.get('userId').statusChanges
+      .subscribe(data => {
+        console.log('statusChanges userId:', data);
+      });
 
   }
 
