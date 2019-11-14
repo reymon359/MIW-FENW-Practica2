@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
         .subscribe((data: any) => {
             this.registering = false;
             console.log(data);
-            if (data.status === 201 && data.statusTExt === 'Created') {
+            if (data.status === 201 && data.statusText === 'Created') {
               document.getElementById('alertRegisterCorrect').style.display = 'block';
               this.registerForm.reset();
             } else {
