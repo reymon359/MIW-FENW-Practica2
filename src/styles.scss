@@ -103,6 +103,8 @@
 }
 
 #loginLoader, #alertLoginCorrect,
-#alertLoginInvalid, #alertLoginFailed {
+#alertLoginInvalid, #alertLoginFailed,
+#alertRegisterCorrect, #alertRegisterFailed,
+#alertRegisterInvalid {
   display: none;
 }

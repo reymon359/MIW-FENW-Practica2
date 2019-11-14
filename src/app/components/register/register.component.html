@@ -1,81 +1,96 @@
 <div class="text-center form-container py-5">
-  <form [formGroup]="registerForm"   (ngSubmit)="submitRegisterForm()"
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()"
         id="registerForm" class=" form-signin p-3 m-auto w-100">
-    <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
+    <div *ngIf="!registering">
+      <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Regístrate</h1>
 
-    <label for="userId" class="sr-only">ID Usuario</label>
-    <input type="text" id="userId" class="form-control my-2 p-2 h-auto"
-           placeholder="ID Usuario" autofocus="" formControlName="userId"
-           [ngClass]="{'is-valid': registerForm.get('userId').valid ,  'is-invalid':
+      <label for="userId" class="sr-only">ID Usuario</label>
+      <input type="text" id="userId" class="form-control my-2 p-2 h-auto"
+             placeholder="ID Usuario" autofocus="" formControlName="userId"
+             [ngClass]="{'is-valid': registerForm.get('userId').valid ,  'is-invalid':
           !registerForm.get('userId').valid  && (registerForm.get('userId').dirty
           || registerForm.get('userId').touched)}">
-    <div *ngIf="registerForm.get('userId').errors?.required  &&
+      <div *ngIf="registerForm.get('userId').errors?.required  &&
           (registerForm.get('userId').dirty || registerForm.get('userId').touched)"
-         class="text-danger"> El ID de Usuario es requerido.
-    </div>
-    <div *ngIf="registerForm.get('userId').errors?.minlength &&
+           class="text-danger"> El ID de Usuario es requerido.
+      </div>
+      <div *ngIf="registerForm.get('userId').errors?.minlength &&
           (registerForm.get('userId').dirty || registerForm.get('userId').touched)"
-         class="text-danger"> Mínimo 3 caracteres.
-    </div>
+           class="text-danger"> Mínimo 3 caracteres.
+      </div>
 
-    <label for="email" class="sr-only">Email</label>
-    <input type="email" id="email" class="form-control my-2 p-2 h-auto"
-           placeholder="Email" formControlName="email"
-           [ngClass]="{'is-valid': registerForm.get('email').valid ,  'is-invalid':
+      <label for="email" class="sr-only">Email</label>
+      <input type="email" id="email" class="form-control my-2 p-2 h-auto"
+             placeholder="Email" formControlName="email"
+             [ngClass]="{'is-valid': registerForm.get('email').valid ,  'is-invalid':
           !registerForm.get('email').valid  && (registerForm.get('email').dirty
           || registerForm.get('email').touched)}">
-    <div *ngIf="registerForm.get('email').errors?.required  &&
+      <div *ngIf="registerForm.get('email').errors?.required  &&
           (registerForm.get('email').dirty || registerForm.get('email').touched)"
-         class="text-danger"> El Email es requerido.
-    </div>
-    <div *ngIf="registerForm.get('email').errors?.pattern  &&
+           class="text-danger"> El Email es requerido.
+      </div>
+      <div *ngIf="registerForm.get('email').errors?.pattern  &&
           (registerForm.get('email').dirty || registerForm.get('email').touched)"
-         class="text-danger"> Introduce un email v&aacute;lido.
-    </div>
+           class="text-danger"> Introduce un email v&aacute;lido.
+      </div>
 
-    <label for="password1" class="sr-only">Contraseña</label>
-    <input type="password" id="password1" class="form-control my-2 p-2 h-auto"
-           placeholder="Contraseña" formControlName="password1"
-           [ngClass]="{'is-valid': registerForm.get('password1').valid , 'is-invalid':
+      <label for="password1" class="sr-only">Contraseña</label>
+      <input type="password" id="password1" class="form-control my-2 p-2 h-auto"
+             placeholder="Contraseña" formControlName="password1"
+             [ngClass]="{'is-valid': registerForm.get('password1').valid , 'is-invalid':
           !registerForm.get('password1').valid  && (registerForm.get('password1').dirty
           || registerForm.get('password1').touched)}">
-    <div *ngIf="registerForm.get('password1').errors?.required  &&
+      <div *ngIf="registerForm.get('password1').errors?.required  &&
           (registerForm.get('password1').dirty || registerForm.get('password1').touched)"
-         class="text-danger"> La contraseña es requerida.
-    </div>
-    <div *ngIf="registerForm.get('password1').errors?.minlength  &&
+           class="text-danger"> La contraseña es requerida.
+      </div>
+      <div *ngIf="registerForm.get('password1').errors?.minlength  &&
           (registerForm.get('password1').dirty || registerForm.get('password1').touched)"
-         class="text-danger"> Mínimo 6 caracteres.
-    </div>
+           class="text-danger"> Mínimo 6 caracteres.
+      </div>
 
-    <label for="password2" class="sr-only">Repita la Contraseña</label>
-    <input type="password" id="password2" class="form-control my-2 p-2 h-auto"
-           placeholder="Repita la Contraseña" formControlName="password2"
-           [ngClass]="{'is-valid': registerForm.get('password2').valid , 'is-invalid':
+      <label for="password2" class="sr-only">Repita la Contraseña</label>
+      <input type="password" id="password2" class="form-control my-2 p-2 h-auto"
+             placeholder="Repita la Contraseña" formControlName="password2"
+             [ngClass]="{'is-valid': registerForm.get('password2').valid , 'is-invalid':
           !registerForm.get('password2').valid  && (registerForm.get('password2').dirty
           || registerForm.get('password2').touched)}">
-    <div *ngIf="!registerForm.get('password2').valid  &&
+      <div *ngIf="!registerForm.get('password2').valid  &&
       (registerForm.get('password2').dirty || registerForm.get('password2').touched) "
-         class="text-danger"> Las contraseñas no coinciden
-    </div>
+           class="text-danger"> Las contraseñas no coinciden
+      </div>
 
-    <label for="birthdate" class="sr-only">Fecha de nacimiento</label>
-    <input type="text" id="birthdate" class="form-control my-2 p-2 h-auto"
-           placeholder="Fecha de nacimiento" onfocus="(this.type='date')"
-           formControlName="birthdate"
-           [ngClass]="{'is-valid': registerForm.get('birthdate').valid , 'is-invalid':
+      <label for="birthdate" class="sr-only">Fecha de nacimiento</label>
+      <input type="text" id="birthdate" class="form-control my-2 p-2 h-auto"
+             placeholder="Fecha de nacimiento" onfocus="(this.type='date')"
+             formControlName="birthdate"
+             [ngClass]="{'is-valid': registerForm.get('birthdate').valid , 'is-invalid':
           !registerForm.get('birthdate').valid  && (registerForm.get('birthdate').dirty
           || registerForm.get('birthdate').touched)}">
-    <div *ngIf="!registerForm.get('birthdate').valid  &&
+      <div *ngIf="!registerForm.get('birthdate').valid  &&
     (registerForm.get('birthdate').dirty || registerForm.get('birthdate').touched) "
-         class="text-danger"> La fecha introducida no es válida.
+           class="text-danger"> La fecha introducida no es válida.
+      </div>
+
+      <button [disabled]="!registerForm.valid" class="btn btn-primary btn-block my-3" type="submit">Registro
+      </button>
     </div>
-
-    <button  [disabled]="!registerForm.valid" class="btn btn-primary btn-block my-3" type="submit" >Registro
-    </button>
-
-    <p>¿Tienes ya una cuenta? <a  [routerLink]="['/login']">Inicia Sesión!</a></p>
+    <div *ngIf="registering" class="text-center">
+      <div class="spinner-grow text-primary m-5" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p>Enviando...</p>
+    </div>
+    <div id="alertRegisterCorrect" class="alert alert-success" role="alert">¡Registro completado con éxito! ya puedes
+      <a [routerLink]="['/login']">acceder</a> a tu cuenta.
+    </div>
+    <div id="alertRegisterInvalid" class="alert alert-danger" role="alert">Ese ID de Usuario ya esta en uso ❌
+    </div>
+    <div id="alertRegisterFailed" class="alert alert-danger" role="alert">Registro erróneo, por favor inténtalo de nuevo
+      más tarde.
+    </div>
+    <p>¿Tienes ya una cuenta? <a [routerLink]="['/login']">Inicia Sesión!</a></p>
   </form>
 </div>
 

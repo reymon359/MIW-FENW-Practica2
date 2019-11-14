@@ -10,7 +10,7 @@ import {UserService} from '../../services/user/user.service';
 })
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
-
+  private registering = false;
   private user: any = {
     userId: '',
     email: '',
@@ -80,15 +80,29 @@ export class RegisterComponent implements OnInit {
   }
 
   submitRegisterForm() {
-    console.log(this.registerForm.value);
+    this.registering = true;
     this.registerForm.value.birthdate = new Date(this.registerForm.value.birthdate).getTime();
-    console.log(this.registerForm.value);
-    console.log(this.registerForm);
-    this.userService.create(this.registerForm.value)
-      .subscribe((data: any) => {
-        console.log(data);
-        // this.registerForm.reset();
-      }, (error) => console.error(error));
+    setTimeout(() => {
+      this.userService.create(this.registerForm.value)
+        .subscribe((data: any) => {
+            this.registering = false;
+            console.log(data);
+            if (data.status === 201 && data.statusTExt === 'Created') {
+              document.getElementById('alertRegisterCorrect').style.display = 'block';
+              this.registerForm.reset();
+            } else {
+              document.getElementById('alertRegisterFailed').style.display = 'block';
+            }
+          }, (error) => {
+            this.registering = false;
+            if (error.error === 'duplicated username') {
+              document.getElementById('alertRegisterInvalid').style.display = 'block';
+              this.registerForm.get('userId').setValue('');
+            }
+            console.error(error);
+          }
+        );
+    }, 1500);
   }
 
 }
