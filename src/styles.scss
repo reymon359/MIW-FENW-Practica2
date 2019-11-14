@@ -104,7 +104,6 @@
 
 #loginLoader, #alertLoginCorrect,
 #alertLoginInvalid, #alertLoginFailed,
-#alertRegisterCorrect, #alertRegisterFailed,
-#alertRegisterInvalid {
+.alertHidden {
   display: none;
 }

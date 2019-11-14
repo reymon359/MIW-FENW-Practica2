@@ -19,6 +19,21 @@
           (registerForm.get('userId').dirty || registerForm.get('userId').touched)"
            class="text-danger"> Mínimo 3 caracteres.
       </div>
+      <div *ngIf="checkingUsername" class="text-primary">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        Comprobando disponibilidad
+      </div>
+      <div *ngIf="!checkingUsername && userNameChecked ==='notFound'" class="text-success"> El ID de usuario
+        esta disponible ✔
+      </div>
+      <div *ngIf="!checkingUsername && userNameChecked ==='found'" class="text-danger"> El ID de usuario ya
+        existe ⚠
+      </div>
+      <div *ngIf="!checkingUsername && userNameChecked ==='error'" class="text-danger"> Error comprobando la
+        disponibilidad ❌
+      </div>
 
       <label for="email" class="sr-only">Email</label>
       <input type="email" id="email" class="form-control my-2 p-2 h-auto"
@@ -83,20 +98,20 @@
       <p>Enviando...</p>
     </div>
 
-    <div id="alertRegisterCorrect" class="alert alert-success alert-dismissible fade show"
+    <div id="alertRegisterCorrect" class="alert alert-success alert-dismissible fade show alertHidden"
          role="alert">¡Registro completado con éxito! ya puedes
       <b><a [routerLink]="['/login']">acceder</a></b> a tu cuenta.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div id="alertRegisterInvalid" class="alert alert-warning alert-dismissible fade show"
+    <div id="alertRegisterInvalid" class="alert alert-warning alert-dismissible fade show alertHidden"
          role="alert">Ese ID de Usuario ya esta en uso ⚠
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div id="alertRegisterFailed" class="alert alert-danger alert-dismissible fade show"
+    <div id="alertRegisterFailed" class="alert alert-danger alert-dismissible fade show alertHidden"
          role="alert">Registro erróneo, por favor inténtalo de nuevo
       más tarde.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user/user.service';
+import {log} from 'util';
 
 
 @Component({
@@ -11,12 +12,15 @@ import {UserService} from '../../services/user/user.service';
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
   private registering = false;
+  private checkingUsername = false;
   private user: any = {
     userId: '',
     email: '',
     password: '',
     birthdate: null
   };
+  private userNameChecked = '';
+  private alerts = ['Correct', 'Invalid', 'Failed'];
 
   constructor(private userService: UserService) {
     this.registerForm = new FormGroup({
@@ -46,7 +50,9 @@ export class RegisterComponent implements OnInit {
     // Detect userId changes
     this.registerForm.get('userId').valueChanges
       .subscribe(data => {
-        console.log('valueChanges userId:', data);
+        if (data.length >= 3) {
+          this.checkUsername(data);
+        }
       });
 
     this.registerForm.get('userId').statusChanges
@@ -80,6 +86,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submitRegisterForm() {
+    this.displayAlert('submitAlerts');
     this.registering = true;
     this.registerForm.value.birthdate = new Date(this.registerForm.value.birthdate).getTime();
     setTimeout(() => {
@@ -87,22 +94,64 @@ export class RegisterComponent implements OnInit {
         .subscribe((data: any) => {
             this.registering = false;
             console.log(data);
-            if (data.status === 201 && data.statusText === 'Created') {
-              document.getElementById('alertRegisterCorrect').style.display = 'block';
+            if (data.status === 201) {
+              this.displayAlert('Correct');
               this.registerForm.reset();
             } else {
-              document.getElementById('alertRegisterFailed').style.display = 'block';
+              this.displayAlert('Failed');
             }
           }, (error) => {
             this.registering = false;
             if (error.error === 'duplicated username') {
-              document.getElementById('alertRegisterInvalid').style.display = 'block';
+              this.displayAlert('Invalid');
               this.registerForm.get('userId').setValue('');
+            } else {
+              this.displayAlert('Failed');
             }
             console.error(error);
           }
         );
     }, 1500);
+  }
+
+
+  checkUsername(usernameFromInput) {
+    this.userNameChecked = '';
+    this.checkingUsername = true;
+    setTimeout(() => {
+      this.userService.checkUsername(usernameFromInput).subscribe((data: any) => {
+          console.log(data);
+          this.checkingUsername = false;
+          if (data.status === 200) {
+            console.log('found');
+            this.userNameChecked = 'found';
+            console.log(this.checkingUsername, this.userNameChecked);
+
+          } else {
+            this.userNameChecked = 'error';
+          }
+        }, (error) => {
+          this.checkingUsername = false;
+          if (error.status === 404) {
+            this.userNameChecked = 'notFound';
+          } else {
+            this.userNameChecked = 'error';
+          }
+          console.error(error);
+        }
+      );
+    }, 1000);
+  }
+
+  displayAlert(alertType: string) {
+    if (this.alerts.includes(alertType)) {
+      document.getElementById(`alertRegister${alertType}`).style.display = 'block';
+    } else if (alertType === 'submitAlerts') {
+      Array.from(document.querySelectorAll(`.alert-dismissible`))
+        .map(alert => alert.setAttribute('style', `display:none`));
+    } else {
+      return;
+    }
   }
 
 }
