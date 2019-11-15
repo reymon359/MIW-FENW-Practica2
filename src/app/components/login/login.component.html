@@ -1,1 +1,105 @@
-<p>login works!</p>
+
+<!--    <div id="loginComponents">-->
+<!--      <label for="inputUserId" class="sr-only">ID Usuario</label>-->
+<!--      <input type="text" id="inputUserId" autocomplete="username" class="form-control mb-3 p-2 h-auto"-->
+<!--             placeholder="ID Usuario" required=""-->
+<!--             autofocus="">-->
+<!--      <label for="inputPassword" class="sr-only">Contraseña</label>-->
+<!--      <input type="password" id="inputPassword" autocomplete="current-password" class="form-control p-2 h-auto "-->
+<!--             placeholder="Contraseña" required="">-->
+<!--      <button id="loginButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Login</button>-->
+<!--    </div>-->
+<!--    <div id="loginLoader" class="text-center">-->
+<!--      <div class="spinner-grow text-primary m-5" role="status">-->
+<!--        <span class="sr-only">Loading...</span>-->
+<!--      </div>-->
+<!--      <p>Enviando...</p>-->
+<!--    </div>-->
+
+<!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
+
+<!--    <div id="alertLoginCorrect" class="alert alert-success" role="alert"></div>-->
+<!--    <div id="alertLoginInvalid" class="alert alert-danger" role="alert">Usuario o contraseña no v&aacute;lidos ❌-->
+<!--    </div>-->
+<!--    <div id="alertLoginFailed" class="alert alert-danger" role="alert">Login erróneo, por favor inténtalo de nuevo-->
+<!--      más tarde.-->
+<!--    </div>-->
+
+
+<div class="text-center form-container py-5">
+  <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()"
+        id="loginForm" class=" form-signin p-3 m-auto w-100">
+    <div *ngIf="!logging">
+      <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Inicia sesión</h1>
+
+      <label for="userId" class="sr-only">ID Usuario</label>
+      <input type="text" id="userId" class="form-control my-2 p-2 h-auto"
+             placeholder="ID Usuario" autofocus="" formControlName="userId"
+             [ngClass]="{'is-valid': loginForm.get('userId').valid ,  'is-invalid':
+          !loginForm.get('userId').valid  && (loginForm.get('userId').dirty
+          || loginForm.get('userId').touched)}">
+      <div *ngIf="loginForm.get('userId').errors?.required  &&
+          (loginForm.get('userId').dirty || loginForm.get('userId').touched)"
+           class="text-danger"> El ID de Usuario es requerido.
+      </div>
+      <div *ngIf="loginForm.get('userId').errors?.minlength &&
+          (loginForm.get('userId').dirty || loginForm.get('userId').touched)"
+           class="text-danger"> Mínimo 3 caracteres.
+      </div>
+
+
+      <label for="password" class="sr-only">Contraseña</label>
+      <input type="password" id="password" class="form-control my-2 p-2 h-auto"
+             placeholder="Contraseña" formControlName="password"
+             [ngClass]="{'is-valid': loginForm.get('password').valid , 'is-invalid':
+          !loginForm.get('password').valid  && (loginForm.get('password').dirty
+          || loginForm.get('password').touched)}">
+      <div *ngIf="loginForm.get('password').errors?.required  &&
+          (loginForm.get('password').dirty || loginForm.get('password').touched)"
+           class="text-danger"> La contraseña es requerida.
+      </div>
+      <div *ngIf="loginForm.get('password').errors?.minlength  &&
+          (loginForm.get('password').dirty || loginForm.get('password').touched)"
+           class="text-danger"> Mínimo 6 caracteres.
+      </div>
+
+
+
+      <button [disabled]="!loginForm.valid" class="btn btn-primary btn-block my-3" type="submit">Registro
+      </button>
+    </div>
+    <div *ngIf="logging" class="text-center">
+      <div class="spinner-grow text-primary m-5" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p>Enviando...</p>
+    </div>
+
+    <div id="alertRegisterCorrect" class="alert alert-success alert-dismissible fade show alertHidden"
+         role="alert">¡Registro completado con éxito! ya puedes
+      <b><a [routerLink]="['/login']">acceder</a></b> a tu cuenta.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="alertRegisterInvalid" class="alert alert-warning alert-dismissible fade show alertHidden"
+         role="alert">Ese ID de Usuario ya esta en uso ⚠
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="alertRegisterFailed" class="alert alert-danger alert-dismissible fade show alertHidden"
+         role="alert">Registro erróneo, por favor inténtalo de nuevo
+      más tarde.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+    <p>¿Necesitas una cuenta? ¡<a href="./registro.html">Registrate</a> para conseguir una!</p>
+  </form>
+
+</div>
+

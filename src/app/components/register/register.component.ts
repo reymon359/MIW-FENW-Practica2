@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user/user.service';
 import {log} from 'util';
@@ -9,7 +9,7 @@ import {log} from 'util';
   templateUrl: './register.component.html',
   styles: []
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   private registerForm: FormGroup;
   private registering = false;
   private checkingUsername = false;
@@ -60,9 +60,6 @@ export class RegisterComponent implements OnInit {
         console.log('statusChanges userId:', data);
       });
 
-  }
-
-  ngOnInit() {
   }
 
   // Custom validator for passwords
@@ -126,7 +123,6 @@ export class RegisterComponent implements OnInit {
             console.log('found');
             this.userNameChecked = 'found';
             console.log(this.checkingUsername, this.userNameChecked);
-
           } else {
             this.userNameChecked = 'error';
           }
