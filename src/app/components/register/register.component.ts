@@ -50,7 +50,7 @@ export class RegisterComponent {
     // Detect userId changes
     this.registerForm.get('userId').valueChanges
       .subscribe(data => {
-        if (data.length >= 3) {
+        if (data !== null && data.length >= 3) {
           this.checkUsername(data);
         }
       });

@@ -25,14 +25,17 @@
         </div>
         Comprobando disponibilidad
       </div>
-      <div *ngIf="!checkingUsername && userNameChecked ==='notFound'" class="text-success"> El ID de usuario
-        esta disponible ✔
-      </div>
-      <div *ngIf="!checkingUsername && userNameChecked ==='found'" class="text-danger"> El ID de usuario ya
-        existe ⚠
-      </div>
-      <div *ngIf="!checkingUsername && userNameChecked ==='error'" class="text-danger"> Error comprobando la
-        disponibilidad ❌
+
+      <div *ngIf="!checkingUsername &&  registerForm.get('userId').dirty">
+        <div *ngIf="userNameChecked ==='notFound' " class="text-success"> El ID de usuario
+          esta disponible ✔
+        </div>
+        <div *ngIf="userNameChecked ==='found'" class="text-danger"> El ID de usuario ya
+          existe ⚠
+        </div>
+        <div *ngIf="userNameChecked ==='error'" class="text-danger"> Error comprobando la
+          disponibilidad ❌
+        </div>
       </div>
 
       <label for="email" class="sr-only">Email</label>
