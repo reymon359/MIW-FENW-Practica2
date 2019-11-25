@@ -10,7 +10,7 @@ import {UserService} from '../../shared/services/user/user.service';
 export class LoginComponent {
   private loginForm: FormGroup;
   private logging = false;
-
+  private loginCompleted = false;
   private alerts = ['Correct', 'Invalid', 'Failed'];
 
   constructor(private userService: UserService) {
@@ -33,6 +33,7 @@ export class LoginComponent {
             if (data.status === 200) {
               this.displayAlert('Correct');
               this.userService.saveUserToken(data.body);
+              this.loginCompleted = true;
               this.loginForm.reset();
             } else {
               this.displayAlert('Failed');

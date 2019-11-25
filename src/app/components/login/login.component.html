@@ -1,22 +1,7 @@
-<!--    <div id="loginComponents">-->
-<!--      <label for="inputUserId" class="sr-only">ID Usuario</label>-->
-<!--      <input type="text" id="inputUserId" autocomplete="username" class="form-control mb-3 p-2 h-auto"-->
-<!--             placeholder="ID Usuario" required=""-->
-<!--             autofocus="">-->
-<!--      <label for="inputPassword" class="sr-only">Contraseña</label>-->
-<!--      <input type="password" id="inputPassword" autocomplete="current-password" class="form-control p-2 h-auto "-->
-<!--             placeholder="Contraseña" required="">-->
-<!--      <button id="loginButton" class="btn btn-lg btn-primary btn-block my-3" type="submit" disabled>Login</button>-->
-
-
-<!--    <div id="alertSubmit" class="alert alert-warning" role="alert">Faltan campos por rellenar ⚠</div>-->
-
-
-
 <div class="text-center form-container py-5">
   <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()"
         id="loginForm" class=" form-signin p-3 m-auto w-100">
-    <div *ngIf="!logging">
+    <div *ngIf="!logging && !loginCompleted">
       <img class="mb-4" src="./assets/images/logo.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Inicia sesión</h1>
 
