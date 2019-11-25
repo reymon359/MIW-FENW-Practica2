@@ -90,7 +90,6 @@ export class RegisterComponent {
       this.userService.create(this.registerForm.value)
         .subscribe((data: any) => {
             this.registering = false;
-            console.log(data);
             if (data.status === 201) {
               this.displayAlert('Correct');
               this.registerForm.reset();
@@ -117,12 +116,9 @@ export class RegisterComponent {
     this.checkingUsername = true;
     setTimeout(() => {
       this.userService.checkUsername(usernameFromInput).subscribe((data: any) => {
-          console.log(data);
           this.checkingUsername = false;
           if (data.status === 200) {
-            console.log('found');
             this.userNameChecked = 'found';
-            console.log(this.checkingUsername, this.userNameChecked);
           } else {
             this.userNameChecked = 'error';
           }

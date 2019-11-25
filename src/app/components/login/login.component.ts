@@ -7,7 +7,7 @@ import {UserService} from '../../services/user/user.service';
   templateUrl: './login.component.html',
   styles: []
 })
-export class LoginComponent  {
+export class LoginComponent {
   private loginForm: FormGroup;
   private logging = false;
 
@@ -23,25 +23,26 @@ export class LoginComponent  {
   }
 
 
-  submitRegisterForm() {
-    // this.displayAlert('submitAlerts');
+  submitLoginForm() {
+    this.displayAlert('submitAlerts');
     this.logging = true;
     setTimeout(() => {
-      this.userService.create(this.loginForm.value)
+      this.userService.login(this.loginForm.get('userId').value, this.loginForm.get('password').value)
         .subscribe((data: any) => {
             this.logging = false;
-            console.log(data);
-            if (data.status === 201) {
+            if (data.status === 200) {
               this.displayAlert('Correct');
+              this.userService.saveUserToken(data.body);
               this.loginForm.reset();
             } else {
               this.displayAlert('Failed');
             }
           }, (error) => {
             this.logging = false;
-            if (error.error === 'duplicated username') {
+            if (error.error === 'invalid username/password supplied') {
               this.displayAlert('Invalid');
-              this.loginForm.get('userId').setValue('');
+            } else if (error.error === 'no username or password') {
+              this.displayAlert('Invalid');
             } else {
               this.displayAlert('Failed');
             }
