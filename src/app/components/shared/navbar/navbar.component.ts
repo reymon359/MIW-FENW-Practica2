@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../../shared/services/user/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class NavbarComponent implements OnInit {
+  private isLoggedIn = false;
 
-  constructor() { }
+  constructor(private userService: UserService) {
+    userService.getEmitter().subscribe((customObject) => {
+      this.isLoggedIn = customObject;
+    });
+  }
 
   ngOnInit() {
   }
