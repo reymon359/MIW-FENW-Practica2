@@ -5,14 +5,14 @@
     <table class="table table-borderless">
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">ID</th>
+        <th scope="col">Pista</th>
+        <th scope="col">Día</th>
+        <th scope="col">Hora</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
+      <tr *ngFor="let reservation of reservations">
         <th scope="row">1</th>
         <td>Mark</td>
         <td>Otto</td>
