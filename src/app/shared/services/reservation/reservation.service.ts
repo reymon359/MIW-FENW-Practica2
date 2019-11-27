@@ -32,7 +32,7 @@ export class ReservationService {
     const url = `${this.url}reservations`;
     const headers = this.getHeaders();
     return this.http.get(url, {headers, observe: 'response'})
-      .pipe(map(data => console.log(data)));
+      .pipe(map(data => data));
   }
 
 
