@@ -44,7 +44,6 @@ export class RegisterComponent {
     this.registerForm.get('birthdate').setValidators([
       Validators.required,
       this.noValidBirthdate.bind(this.registerForm)
-
     ]);
 
     // Detect userId changes

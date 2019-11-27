@@ -5,24 +5,88 @@
     </div>
     <div class="col ">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-       Nueva reserva
+        Nueva reserva
       </button>
     </div>
-<!-- TODO  poner un tooltip de que no puede hacer mas reservar si ya tiene 4, que elimine una antes-->
+    <!-- TODO  poner un tooltip de que no puede hacer mas reservar si ya tiene 4, que elimine una antes-->
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header border-bottom-0">
-          <h5 class="modal-title " id="exampleModalCenterTitle">Nueva reserva</h5>
+<!--          <h5 class="modal-title " id="exampleModalCenterTitle">Nueva reserva</h5>-->
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          FORMULARIO NUEVA RESRVA
+          <form [formGroup]="bookingForm" (ngSubmit)="submitBookingForm()"
+                id="bookingForm" class=" form-signin p-3 m-auto w-100">
+            <div *ngIf="!booking && !bookingCompleted">
+              <h1 class="h3 mb-3 font-weight-normal text-center">Nueva reserva</h1>
+              <label for="reservationDate" class="sr-only">Fecha de nacimiento</label>
+              <input type="text" id="reservationDate" class="form-control my-2 p-2 h-auto"
+                     placeholder="Dia de la reserva" onfocus="(this.type='date')"
+                     formControlName="reservationDate"
+                     [ngClass]="{'is-valid': bookingForm.get('reservationDate').valid , 'is-invalid':
+          !bookingForm.get('reservationDate').valid  && (bookingForm.get('reservationDate').dirty
+          || bookingForm.get('reservationDate').touched)}">
+              <div *ngIf="!bookingForm.get('reservationDate').valid  &&
+    (bookingForm.get('reservationDate').dirty || bookingForm.get('reservationDate').touched) "
+                   class="text-danger"> La fecha introducida no es válida.
+              </div>
+
+
+              <label for="password" class="sr-only">Contraseña</label>
+              <input type="password" id="password" class="form-control my-2 p-2 h-auto"
+                     placeholder="Contraseña" formControlName="password"
+                     [ngClass]="{'is-valid': bookingForm.get('password').valid , 'is-invalid':
+          !bookingForm.get('password').valid  && (bookingForm.get('password').dirty
+          || bookingForm.get('password').touched)}">
+              <div *ngIf="bookingForm.get('password').errors?.required  &&
+          (bookingForm.get('password').dirty || bookingForm.get('password').touched)"
+                   class="text-danger"> La contraseña es requerida.
+              </div>
+              <div *ngIf="bookingForm.get('password').errors?.minlength  &&
+          (bookingForm.get('password').dirty || bookingForm.get('password').touched)"
+                   class="text-danger"> Mínimo 6 caracteres.
+              </div>
+
+
+              <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Login
+              </button>
+            </div>
+            <div *ngIf="booking" class="text-center">
+              <div class="spinner-grow text-primary m-5" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p>Enviando...</p>
+            </div>
+
+            <div id="alertRegisterCorrect" class="alert alert-success alert-dismissible fade show alertHidden"
+                 role="alert"> ¡Bienvenido! ✔ Ya puedes <b><a [routerLink]="['/booking']">reservar</a></b> una pista.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="alertRegisterInvalid" class="alert alert-warning alert-dismissible fade show alertHidden"
+                 role="alert">ID de Usuario o contraseña no v&aacute;lidos ❌
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="alertRegisterFailed" class="alert alert-danger alert-dismissible fade show alertHidden"
+                 role="alert">Login erróneo, por favor inténtalo de nuevo más tarde.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <p>¿Necesitas una cuenta? ¡<a [routerLink]="['/register']">Registrate</a> para conseguir una!</p>
+          </form>
         </div>
         <div class="modal-footer border-top-0">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -31,7 +95,6 @@
       </div>
     </div>
   </div>
-
 
 
   <div class="row">
