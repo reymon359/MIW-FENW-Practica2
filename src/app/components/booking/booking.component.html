@@ -42,7 +42,7 @@
 
               <label for="reservationHour" class="sr-only">Hora</label>
               <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"
-                   placeholder="Hora de la reserva"
+                     placeholder="Hora de la reserva"
                      formControlName="reservationHour" onfocus="(this.type='number')"
                      [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':
           !bookingForm.get('reservationHour').valid  && (bookingForm.get('reservationHour').dirty
@@ -51,10 +51,10 @@
           (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched)"
                    class="text-danger"> La hora es requerida.
               </div>
-<!--              <div *ngIf="!bookingForm.get('reservationHour').valid  &&-->
-<!--    (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "-->
-<!--                   class="text-danger"> La hora debe ser en punto (XX:00).-->
-<!--              </div>-->
+              <div *ngIf="!bookingForm.get('reservationHour').valid  &&
+    (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "
+                   class="text-danger"> Hora no válida (10 - 21).
+              </div>
 
 
               <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Login
