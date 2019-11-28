@@ -3,7 +3,12 @@ import {Reservation} from '../../shared/models/index.model';
 import {ReservationService} from '../../shared/services/reservation/reservation.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../shared/services/user/user.service';
-
+// this.reservations = [
+//   {rsvId: 925, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
+//   {rsvId: 926, courtId: 2, rsvdateTime: 1544529600000, rsvday: '13/12/2018', rsvtime: '13:00'},
+//   {rsvId: 927, courtId: 1, rsvdateTime: 1544529600000, rsvday: '14/12/2018', rsvtime: '12:00'},
+//   {rsvId: 928, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
+// ];
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -11,6 +16,7 @@ import {UserService} from '../../shared/services/user/user.service';
 })
 export class BookingComponent implements OnInit {
   private reservations: Reservation[] = [];
+  private reservationsAvailables: Reservation[] = [];
   private bookingForm: FormGroup;
   private booking = false;
   private bookingCompleted = false;
@@ -53,18 +59,13 @@ export class BookingComponent implements OnInit {
   getReservations() {
     this.reservationService.getUserReservations().subscribe((data: any) => {
       this.reservations = data.body;
-      console.log(data);
     }, (error) => {
-      this.userService.tokenInvalid();
+      if (error.status === 401) {
+        this.userService.tokenInvalid();
+      }
       console.error(error);
     });
-    // this.reservations = [
-    //   {rsvId: 925, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
-    //   {rsvId: 926, courtId: 2, rsvdateTime: 1544529600000, rsvday: '13/12/2018', rsvtime: '13:00'},
-    //   {rsvId: 927, courtId: 1, rsvdateTime: 1544529600000, rsvday: '14/12/2018', rsvtime: '12:00'},
-    //   {rsvId: 928, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
-    // ];
-    console.log(this.reservations);
+
   }
 
   // Custom validator for reservationDate
@@ -90,7 +91,7 @@ export class BookingComponent implements OnInit {
     setTimeout(() => {
       this.reservationService.reserve(1, date)
         .subscribe((data: any) => {
-          console.log(data);
+            console.log(data);
             // this.logging = false;
             // if (data.status === 200) {
             //   this.displayAlert('Correct');
@@ -143,7 +144,7 @@ export class BookingComponent implements OnInit {
   }
 
   displayHoursAvailables(reservations: Reservation[]) {
-    console.log(reservations);
+    this.reservationsAvailables = reservations;
   }
 
 
@@ -156,5 +157,16 @@ export class BookingComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  deleteBookings() {
+    this.reservationService.delete()
+      .subscribe((data: any) => {
+          console.log(data);
+
+        }, (error) => {
+          console.error(error);
+        }
+      );
   }
 }

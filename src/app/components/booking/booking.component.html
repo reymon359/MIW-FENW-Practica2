@@ -4,9 +4,10 @@
       <h2>Tus reservas</h2>
     </div>
     <div class="col ">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModalCenter">
         Nueva reserva
       </button>
+      <button type="button" (click)="deleteBookings()" class="btn btn-primary btn-danger "> Eliminar reservas</button>
     </div>
     <!-- TODO  poner un tooltip de que no puede hacer mas reservar si ya tiene 4, que elimine una antes-->
   </div>
@@ -47,7 +48,29 @@
 
               <div *ngIf="!checkingbookingAvailability &&  bookingForm.get('reservationDate').dirty">
                 <div *ngIf="bookingAvailabilityChecked ==='found'">
-
+                  <div class="row">
+                    <div class="col">Hora</div>
+                    <div class="col">pistas</div>
+                  </div>
+                  <div *ngFor="let number of [10,11,12,13,14,15,16,17,18,19,20,21]" class="row">
+                    <div class="col-2">{{number}}:00</div>
+                    <div class="col-10">
+                      <div class="row">
+                        <div class="col-3">
+                          <button type="button" class="btn btn-outline-success">1</button>
+                        </div>
+                        <div class="col-3">
+                          <button type="button" class="btn btn-outline-success">2</button>
+                        </div>
+                        <div class="col-3">
+                          <button type="button" class="btn btn-outline-success">3</button>
+                        </div>
+                        <div class="col-3">
+                          <button type="button" class="btn btn-outline-success">4</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
                 <div *ngIf="bookingAvailabilityChecked ==='error'" class="text-danger"> Error comprobando la
@@ -100,7 +123,6 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-
           </form>
         </div>
       </div>
@@ -108,9 +130,9 @@
   </div>
 
 
+  <!--User Reservations Table-->
   <div class="row">
     <div class="col text-center">
-
       <table class="table table-borderless">
         <thead>
         <tr>
