@@ -25,6 +25,9 @@ export class BookingComponent implements OnInit {
 
     this.bookingForm = new FormGroup({
       reservationDate: new FormControl(),
+      reservationHour: new FormControl('',
+        [Validators.required, Validators.min(10),
+          Validators.max(21)]),
     });
 
     // ReservationDate
@@ -76,42 +79,44 @@ export class BookingComponent implements OnInit {
   submitBookingForm() {
     this.displayAlert('submitAlerts');
     this.booking = true;
+    const date = this.bookingForm.get('reservationDate').value;
+    const hour = this.bookingForm.get('reservationHour').value;
+    console.log({date, hour});
     setTimeout(() => {
-      // this.reservationService.login(this.loginForm.get('userId').value, this.loginForm.get('password').value)
-      //   .subscribe((data: any) => {
-      //       this.logging = false;
-      //       if (data.status === 200) {
-      //         this.displayAlert('Correct');
-      //         this.userService.saveUserToken(data.body);
-      //         this.loginCompleted = true;
-      //         this.loginForm.reset();
-      //       } else {
-      //         this.displayAlert('Failed');
-      //       }
-      //     }, (error) => {
-      //       this.logging = false;
-      //       if (error.error === 'invalid username/password supplied') {
-      //         this.displayAlert('Invalid');
-      //       } else if (error.error === 'no username or password') {
-      //         this.displayAlert('Invalid');
-      //       } else {
-      //         this.displayAlert('Failed');
-      //       }
-      //       console.error(error);
-      //     }
-      //   );
+      this.reservationService.reserve(1, new Date().getTime())
+        .subscribe((data: any) => {
+          console.log(data);
+            // this.logging = false;
+            // if (data.status === 200) {
+            //   this.displayAlert('Correct');
+            //   this.userService.saveUserToken(data.body);
+            //   this.loginCompleted = true;
+            //   this.loginForm.reset();
+            // } else {
+            //   this.displayAlert('Failed');
+            // }
+          }, (error) => {
+            // this.logging = false;
+            // if (error.error === 'invalid username/password supplied') {
+            //   this.displayAlert('Invalid');
+            // } else if (error.error === 'no username or password') {
+            //   this.displayAlert('Invalid');
+            // } else {
+            //   this.displayAlert('Failed');
+            // }
+            console.error(error);
+          }
+        );
     }, 1500);
   }
 
   checkBookingAvailability(date) {
-    console.log('checking');
     this.bookingAvailabilityChecked = '';
     this.checkingbookingAvailability = true;
     setTimeout(() => {
       this.reservationService.getReservationAvailability(new Date(date).getTime())
         .subscribe((data: any) => {
             this.checkingbookingAvailability = false;
-            console.log(data);
             if (data.status === 200) {
               this.bookingAvailabilityChecked = 'found';
               this.displayHoursAvailables(data.body);

@@ -38,25 +38,41 @@
                    class="text-danger"> La fecha introducida no es válida.
               </div>
 
+              <div *ngIf="checkingbookingAvailability" class="text-primary">
+                <div class="spinner-grow text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                Comprobando Disponibilidad
+              </div>
 
-<!--              <label for="reservationHour" class="sr-only">Hora</label>-->
-<!--              <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"-->
-<!--                     placeholder="Hora de la reserva"-->
-<!--                     formControlName="reservationHour" onfocus="(this.type='number')"-->
-<!--                     [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':-->
-<!--          !bookingForm.get('reservationHour').valid  && (bookingForm.get('reservationHour').dirty-->
-<!--          || bookingForm.get('reservationHour').touched)}">-->
-<!--              <div *ngIf="bookingForm.get('reservationHour').errors?.required  &&-->
-<!--          (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched)"-->
-<!--                   class="text-danger"> La hora es requerida.-->
-<!--              </div>-->
-<!--              <div *ngIf="!bookingForm.get('reservationHour').valid  &&-->
-<!--    (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "-->
-<!--                   class="text-danger"> Hora no válida (10 - 21).-->
-<!--              </div>-->
+              <div *ngIf="!checkingbookingAvailability &&  bookingForm.get('reservationDate').dirty">
+                <div *ngIf="bookingAvailabilityChecked ==='found'">
 
 
-              <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Login
+                </div>
+                <div *ngIf="bookingAvailabilityChecked ==='error'" class="text-danger"> Error comprobando la
+                  disponibilidad ❌
+                </div>
+              </div>
+
+                            <label for="reservationHour" class="sr-only">Hora</label>
+                            <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"
+                                   placeholder="Hora de la reserva"
+                                   formControlName="reservationHour" onfocus="(this.type='number')"
+                                   [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':
+                        !bookingForm.get('reservationHour').valid  && (bookingForm.get('reservationHour').dirty
+                        || bookingForm.get('reservationHour').touched)}">
+                            <div *ngIf="bookingForm.get('reservationHour').errors?.required  &&
+                        (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched)"
+                                 class="text-danger"> La hora es requerida.
+                            </div>
+                            <div *ngIf="!bookingForm.get('reservationHour').valid  &&
+                  (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "
+                                 class="text-danger"> Hora no válida (10 - 21).
+                            </div>
+
+
+              <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Reservar
               </button>
             </div>
             <div *ngIf="booking" class="text-center">
@@ -85,12 +101,7 @@
               </button>
             </div>
 
-            <p>¿Necesitas una cuenta? ¡<a [routerLink]="['/register']">Registrate</a> para conseguir una!</p>
           </form>
-        </div>
-        <div class="modal-footer border-top-0">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
