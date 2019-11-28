@@ -35,5 +35,12 @@ export class ReservationService {
       .pipe(map(data => data));
   }
 
+  getReservationAvailability(date) {
+    const url = `${this.url}reservations/${date}`;
+    const headers = this.getHeaders();
+    return this.http.get(url, {headers, observe: 'response'})
+      .pipe(map(data => data));
+  }
+
 
 }

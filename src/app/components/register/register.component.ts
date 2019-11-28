@@ -12,13 +12,8 @@ import {log} from 'util';
 export class RegisterComponent {
   private registerForm: FormGroup;
   private registering = false;
+
   private checkingUsername = false;
-  private user: any = {
-    userId: '',
-    email: '',
-    password: '',
-    birthdate: null
-  };
   private userNameChecked = '';
   private alerts = ['Correct', 'Invalid', 'Failed'];
 

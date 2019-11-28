@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Reservation} from '../../shared/models/index.model';
 import {ReservationService} from '../../shared/services/reservation/reservation.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../shared/services/user/user.service';
 
 @Component({
   selector: 'app-booking',
@@ -13,19 +14,17 @@ export class BookingComponent implements OnInit {
   private bookingForm: FormGroup;
   private booking = false;
   private bookingCompleted = false;
-  private alerts = ['Correct', 'Invalid', 'Failed'];
 
-  constructor(private reservationService: ReservationService) {
+  private checkingbookingAvailability = false;
+  private bookingAvailabilityChecked = '';
+  private alerts = ['Correct', 'Invalid', 'Failed'];
+  private hours = ['10:00', '11:00', '12:00'];
+
+  constructor(private reservationService: ReservationService,
+              private  userService: UserService) {
 
     this.bookingForm = new FormGroup({
       reservationDate: new FormControl(),
-      reservationHour: new FormControl('',
-     [Validators.required, Validators.min(10),
-       Validators.max(21)]),
-      // userId: new FormControl('',
-      //   [Validators.required, Validators.minLength(3)]),
-      // password: new FormControl('', [Validators.required
-      //   , Validators.minLength(6)]),
     });
 
     // ReservationDate
@@ -34,16 +33,13 @@ export class BookingComponent implements OnInit {
       this.noValidReservationDate.bind(this.bookingForm)
     ]);
 
-    // // ReservationHour
-    // this.bookingForm.get('reservationHour').setValidators([
-    //   this.noValidReservationHour.bind(this.bookingForm)
-    // ]);
-
-    // Detect userId changes
-    this.bookingForm.get('reservationHour').valueChanges
+    // Detect reservationDate changes
+    this.bookingForm.get('reservationDate').valueChanges
       .subscribe(data => {
         console.log(data);
-
+        if (this.bookingForm.get('reservationDate').valid) {
+          this.checkBookingAvailability(data);
+        }
       });
   }
 
@@ -54,7 +50,10 @@ export class BookingComponent implements OnInit {
   getReservations() {
     this.reservationService.getUserReservations().subscribe((data: any) => {
       console.log(data);
-    }, (error) => console.error(error));
+    }, (error) => {
+      this.userService.tokenInvalid();
+      console.error(error);
+    });
     this.reservations = [
       {rsvId: 925, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
       {rsvId: 926, courtId: 2, rsvdateTime: 1544529600000, rsvday: '13/12/2018', rsvtime: '13:00'},
@@ -103,6 +102,40 @@ export class BookingComponent implements OnInit {
       //   );
     }, 1500);
   }
+
+  checkBookingAvailability(date) {
+    console.log('checking');
+    this.bookingAvailabilityChecked = '';
+    this.checkingbookingAvailability = true;
+    setTimeout(() => {
+      this.reservationService.getReservationAvailability(new Date(date).getTime())
+        .subscribe((data: any) => {
+            this.checkingbookingAvailability = false;
+            console.log(data);
+            if (data.status === 200) {
+              this.bookingAvailabilityChecked = 'found';
+              this.displayHoursAvailables(data.body);
+            } else {
+              this.bookingAvailabilityChecked = 'error';
+            }
+          }, (error: any) => {
+            console.log('error', error);
+            this.checkingbookingAvailability = false;
+            if (error.status === 401 && error.error === 'no valid token') {
+              this.userService.tokenInvalid();
+            } else {
+              this.bookingAvailabilityChecked = 'error';
+            }
+            // console.error(error);
+          }
+        );
+    }, 1000);
+  }
+
+  displayHoursAvailables(reservations: Reservation[]) {
+    console.log(reservations);
+  }
+
 
   displayAlert(alertType: string) {
     if (this.alerts.includes(alertType)) {
