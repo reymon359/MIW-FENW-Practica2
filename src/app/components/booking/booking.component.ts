@@ -19,6 +19,9 @@ export class BookingComponent implements OnInit {
 
     this.bookingForm = new FormGroup({
       reservationDate: new FormControl(),
+      reservationHour: new FormControl('',
+     [Validators.required, Validators.min(10),
+       Validators.max(21)]),
       // userId: new FormControl('',
       //   [Validators.required, Validators.minLength(3)]),
       // password: new FormControl('', [Validators.required
@@ -30,6 +33,18 @@ export class BookingComponent implements OnInit {
       Validators.required,
       this.noValidReservationDate.bind(this.bookingForm)
     ]);
+
+    // // ReservationHour
+    // this.bookingForm.get('reservationHour').setValidators([
+    //   this.noValidReservationHour.bind(this.bookingForm)
+    // ]);
+
+    // Detect userId changes
+    this.bookingForm.get('reservationHour').valueChanges
+      .subscribe(data => {
+        console.log(data);
+
+      });
   }
 
   ngOnInit() {
@@ -50,10 +65,10 @@ export class BookingComponent implements OnInit {
 
   // Custom validator for reservationDate
   noValidReservationDate(control: FormControl): { [s: string]: boolean } {
-
-    const minDate = new Date().getTime();
+    const d = new Date();
+    const minDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
     const userDate = new Date(control.value).getTime();
-    if (minDate > userDate) {
+    if (userDate < minDate) {
       return {novalid: true};
     }
     return null;

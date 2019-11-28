@@ -17,7 +17,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0 shadow-lg">
         <div class="modal-header border-bottom-0">
-<!--          <h5 class="modal-title " id="exampleModalCenterTitle">Nueva reserva</h5>-->
+          <!--          <h5 class="modal-title " id="exampleModalCenterTitle">Nueva reserva</h5>-->
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -27,7 +27,7 @@
                 id="bookingForm" class=" form-signin p-3 m-auto w-100">
             <div *ngIf="!booking && !bookingCompleted">
               <h1 class="h3 mb-3 font-weight-normal text-center">Nueva reserva</h1>
-              <label for="reservationDate" class="sr-only">Fecha de nacimiento</label>
+              <label for="reservationDate" class="sr-only">Fecha</label>
               <input type="text" id="reservationDate" class="form-control my-2 p-2 h-auto"
                      placeholder="Dia de la reserva" onfocus="(this.type='date')"
                      formControlName="reservationDate"
@@ -40,20 +40,21 @@
               </div>
 
 
-              <label for="hour" class="sr-only">Contraseña</label>
-              <input type="password" id="password" class="form-control my-2 p-2 h-auto"
-                     placeholder="Contraseña" formControlName="password"
-                     [ngClass]="{'is-valid': bookingForm.get('password').valid , 'is-invalid':
-          !bookingForm.get('password').valid  && (bookingForm.get('password').dirty
-          || bookingForm.get('password').touched)}">
-              <div *ngIf="bookingForm.get('password').errors?.required  &&
-          (bookingForm.get('password').dirty || bookingForm.get('password').touched)"
-                   class="text-danger"> La contraseña es requerida.
+              <label for="reservationHour" class="sr-only">Hora</label>
+              <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"
+                   placeholder="Hora de la reserva"
+                     formControlName="reservationHour" onfocus="(this.type='number')"
+                     [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':
+          !bookingForm.get('reservationHour').valid  && (bookingForm.get('reservationHour').dirty
+          || bookingForm.get('reservationHour').touched)}">
+              <div *ngIf="bookingForm.get('reservationHour').errors?.required  &&
+          (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched)"
+                   class="text-danger"> La hora es requerida.
               </div>
-              <div *ngIf="bookingForm.get('password').errors?.minlength  &&
-          (bookingForm.get('password').dirty || bookingForm.get('password').touched)"
-                   class="text-danger"> Mínimo 6 caracteres.
-              </div>
+<!--              <div *ngIf="!bookingForm.get('reservationHour').valid  &&-->
+<!--    (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "-->
+<!--                   class="text-danger"> La hora debe ser en punto (XX:00).-->
+<!--              </div>-->
 
 
               <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Login
