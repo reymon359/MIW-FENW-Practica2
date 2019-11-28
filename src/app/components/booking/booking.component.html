@@ -55,21 +55,21 @@
                 </div>
               </div>
 
-                            <label for="reservationHour" class="sr-only">Hora</label>
-                            <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"
-                                   placeholder="Hora de la reserva"
-                                   formControlName="reservationHour" onfocus="(this.type='number')"
-                                   [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':
+              <label for="reservationHour" class="sr-only">Hora</label>
+              <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"
+                     placeholder="Hora de la reserva"
+                     formControlName="reservationHour" onfocus="(this.type='number')"
+                     [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':
                         !bookingForm.get('reservationHour').valid  && (bookingForm.get('reservationHour').dirty
                         || bookingForm.get('reservationHour').touched)}">
-                            <div *ngIf="bookingForm.get('reservationHour').errors?.required  &&
+              <div *ngIf="bookingForm.get('reservationHour').errors?.required  &&
                         (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched)"
-                                 class="text-danger"> La hora es requerida.
-                            </div>
-                            <div *ngIf="!bookingForm.get('reservationHour').valid  &&
+                   class="text-danger"> La hora es requerida.
+              </div>
+              <div *ngIf="!bookingForm.get('reservationHour').valid  &&
                   (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "
-                                 class="text-danger"> Hora no válida (10 - 21).
-                            </div>
+                   class="text-danger"> Hora no válida (10 - 21).
+              </div>
 
 
               <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Reservar
@@ -115,28 +115,17 @@
         <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Pista</th>
           <th scope="col">Día</th>
           <th scope="col">Hora</th>
+          <th scope="col">Pista</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let reservation of reservations">
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
+          <th scope="row">{{reservation.rsvId}}</th>
+          <td>{{reservation.rsvday}}</td>
+          <td>{{reservation.rsvtime}}</td>
+          <td>{{reservation.courtId}}</td>
         </tr>
         </tbody>
       </table>

@@ -28,6 +28,13 @@ export class ReservationService {
       .pipe(map(data => data));
   }
 
+  delete() {
+    const url = `${this.url}reservations`;
+    const headers = this.getHeaders();
+    return this.http.delete(url, {headers, observe: 'response'})
+      .pipe(map(data => data));
+  }
+
   getUserReservations() {
     const url = `${this.url}reservations`;
     const headers = this.getHeaders();

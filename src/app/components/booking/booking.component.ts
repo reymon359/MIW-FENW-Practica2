@@ -52,17 +52,19 @@ export class BookingComponent implements OnInit {
 
   getReservations() {
     this.reservationService.getUserReservations().subscribe((data: any) => {
+      this.reservations = data.body;
       console.log(data);
     }, (error) => {
       this.userService.tokenInvalid();
       console.error(error);
     });
-    this.reservations = [
-      {rsvId: 925, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
-      {rsvId: 926, courtId: 2, rsvdateTime: 1544529600000, rsvday: '13/12/2018', rsvtime: '13:00'},
-      {rsvId: 927, courtId: 1, rsvdateTime: 1544529600000, rsvday: '14/12/2018', rsvtime: '12:00'},
-      {rsvId: 928, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
-    ];
+    // this.reservations = [
+    //   {rsvId: 925, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
+    //   {rsvId: 926, courtId: 2, rsvdateTime: 1544529600000, rsvday: '13/12/2018', rsvtime: '13:00'},
+    //   {rsvId: 927, courtId: 1, rsvdateTime: 1544529600000, rsvday: '14/12/2018', rsvtime: '12:00'},
+    //   {rsvId: 928, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
+    // ];
+    console.log(this.reservations);
   }
 
   // Custom validator for reservationDate
@@ -79,11 +81,14 @@ export class BookingComponent implements OnInit {
   submitBookingForm() {
     this.displayAlert('submitAlerts');
     this.booking = true;
-    const date = this.bookingForm.get('reservationDate').value;
-    const hour = this.bookingForm.get('reservationHour').value;
-    console.log({date, hour});
+    const date = new Date(this.bookingForm.get('reservationDate').value)
+      .setHours(this.bookingForm.get('reservationHour').value);
+
+
+    console.log(date);
+    console.log(date.toString());
     setTimeout(() => {
-      this.reservationService.reserve(1, new Date().getTime())
+      this.reservationService.reserve(1, date)
         .subscribe((data: any) => {
           console.log(data);
             // this.logging = false;
