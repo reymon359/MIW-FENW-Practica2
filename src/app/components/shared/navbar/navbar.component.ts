@@ -7,9 +7,9 @@ import {UserService} from '../../../shared/services/user/user.service';
   styles: []
 })
 export class NavbarComponent implements OnInit {
-  private isLoggedIn = false;
+  isLoggedIn = false;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
     userService.getEmitter().subscribe((customObject) => {
       this.isLoggedIn = customObject;
     });

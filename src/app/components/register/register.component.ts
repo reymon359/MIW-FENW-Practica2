@@ -10,11 +10,11 @@ import {log} from 'util';
   styles: []
 })
 export class RegisterComponent {
-  private registerForm: FormGroup;
-  private registering = false;
+   registerForm: FormGroup;
+   registering = false;
 
-  private checkingUsername = false;
-  private userNameChecked = '';
+   checkingUsername = false;
+   userNameChecked = '';
   private alerts = ['Correct', 'Invalid', 'Failed'];
 
   constructor(private userService: UserService) {

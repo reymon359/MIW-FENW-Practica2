@@ -10,16 +10,16 @@ import {UserService} from '../../shared/services/user/user.service';
   styles: []
 })
 export class BookingComponent implements OnInit {
-  private reservations: Reservation[] = [];
-  private reservationsBooked = [];
-  private bookingForm: FormGroup;
-  private booking = false;
-  private bookingCompleted = false;
+  reservations: Reservation[] = [];
+  reservationsBooked = [];
+  bookingForm: FormGroup;
+  booking = false;
+  bookingCompleted = false;
 
-  private checkingbookingAvailability = false;
-  private bookingAvailabilityChecked = '';
+  checkingbookingAvailability = false;
+  bookingAvailabilityChecked = '';
   private alerts = ['Correct', 'Invalid', 'Failed'];
-  private loadingBookings = false;
+  loadingBookings = false;
 
   constructor(private reservationService: ReservationService,
               private  userService: UserService) {
@@ -169,8 +169,6 @@ export class BookingComponent implements OnInit {
         this.loadingBookings = false;
         if (error.status === 401) {
           this.userService.tokenInvalid();
-        } else {
-          console.error(error);
         }
       });
   }

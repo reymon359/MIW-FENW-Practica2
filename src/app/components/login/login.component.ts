@@ -8,9 +8,9 @@ import {UserService} from '../../shared/services/user/user.service';
   styles: []
 })
 export class LoginComponent {
-  private loginForm: FormGroup;
-  private logging = false;
-  private loginCompleted = false;
+  loginForm: FormGroup;
+  logging = false;
+  loginCompleted = false;
   private alerts = ['Correct', 'Invalid', 'Failed'];
 
   constructor(private userService: UserService) {
