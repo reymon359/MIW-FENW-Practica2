@@ -16,7 +16,7 @@ import {UserService} from '../../shared/services/user/user.service';
 })
 export class BookingComponent implements OnInit {
   private reservations: Reservation[] = [];
-  private reservationsBooked: Reservation[] = [];
+  private reservationsBooked = [];
   private bookingForm: FormGroup;
   private booking = false;
   private bookingCompleted = false;
@@ -143,8 +143,10 @@ export class BookingComponent implements OnInit {
     }, 1000);
   }
 
-  displayHoursAvailables(reservations: Reservation[]) {
-    this.reservationsBooked = reservations;
+  displayHoursAvailables(reservations) {
+    this.reservationsBooked = reservations.map((r: any) =>
+      Number(r.rsvtime.split(':')[0]) * 10 + Number(r.courtId));
+    console.log(this.reservationsBooked);
   }
 
 
