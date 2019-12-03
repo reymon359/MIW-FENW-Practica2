@@ -79,17 +79,16 @@ export class BookingComponent implements OnInit {
     return null;
   }
 
-  submitBookingForm() {
+  submitBookingForm(hour, court) {
+    console.log({hour, court});
     this.displayAlert('submitAlerts');
     this.booking = true;
     const date = new Date(this.bookingForm.get('reservationDate').value)
-      .setHours(this.bookingForm.get('reservationHour').value);
-
-
+      .setHours(hour);
     console.log(date);
     console.log(date.toString());
     setTimeout(() => {
-      this.reservationService.reserve(1, date)
+      this.reservationService.reserve(court, date)
         .subscribe((data: any) => {
             console.log(data);
             // this.logging = false;
@@ -130,7 +129,7 @@ export class BookingComponent implements OnInit {
               this.bookingAvailabilityChecked = 'error';
             }
           }, (error: any) => {
-            console.log('error', error);
+            console.error(error);
             this.checkingbookingAvailability = false;
             if (error.status === 401 && error.error === 'no valid token') {
               this.userService.tokenInvalid();
