@@ -5,12 +5,15 @@
     </div>
     <div class="col ">
       <button type="button" (click)="restartForm()" class="btn btn-primary mr-2" data-toggle="modal"
-              data-target="#exampleModalCenter">
+              [disabled]="this.reservations.length >= 4" data-target="#exampleModalCenter"
+              [title]="this.reservations.length >= 4 ? 'Has alcanzado el número máximo de reservas': '' ">
         Nueva reserva
       </button>
-      <button type="button" (click)="deleteBookings()" class="btn btn-primary btn-danger "> Eliminar reservas</button>
+      <button type="button" (click)="deleteBookings()" class="btn btn-primary btn-danger "
+              [disabled]="this.reservations.length == 0" data-target="#exampleModalCenter"
+              [title]="this.reservations.length == 0 ? 'No hay reservas que eliminar': '' ">
+        Eliminar reservas</button>
     </div>
-    <!-- TODO  poner un tooltip de que no puede hacer mas reservar si ya tiene 4, que elimine una antes-->
   </div>
 
   <!-- Modal -->
@@ -19,8 +22,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0 shadow-lg">
         <div class="modal-header border-bottom-0">
-          <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span  aria-hidden="true">&times;</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body my-4">
@@ -107,7 +110,7 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <table  *ngIf="!loadingBookings" class="table table-borderless">
+      <table *ngIf="!loadingBookings" class="table table-borderless">
         <thead>
         <tr>
           <th scope="col">ID</th>
