@@ -48,30 +48,30 @@
 
               <div *ngIf="!checkingbookingAvailability &&  bookingForm.get('reservationDate').dirty">
                 <div *ngIf="bookingAvailabilityChecked ==='found'">
+                  <!--                  <div class="row">-->
+                  <!--                    <div class="col">Hora</div>-->
+                  <!--                    <div class="col">pistas</div>-->
+                  <!--                  </div>-->
+                  <!--                  <div *ngFor="let number of [10,11,12,13,14,15,16,17,18,19,20,21]" class="row">-->
+                  <!--                    <div class="col-2">{{number}}:00</div>-->
+                  <!--                    <div class="col-10">-->
+                  <!--                      <div class="row">-->
+                  <!--                        <div *ngFor="let court of [1,2,3,4]" class="col-3">-->
+                  <!--                          <button type="button" class="btn btn-outline-success"-->
+                  <!--                          >{{court}}</button>-->
+                  <!--                          <div *ngIf="reservationsBooked.includes({number, court})">-->
+                  <!--                            Hola-->
+                  <!--                          </div>-->
+                  <!--                        </div>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
                   <div class="row">
-                    <div class="col">Hora</div>
-                    <div class="col">pistas</div>
+                    <h6>Horas y pistas reservadas</h6>
                   </div>
-                  <div *ngFor="let number of [10,11,12,13,14,15,16,17,18,19,20,21]" class="row">
-                    <div class="col-2">{{number}}:00</div>
-                    <div class="col-10">
-                      <div class="row">
-                        <div class="col-3">
-                          <button type="button" class="btn btn-outline-success">1</button>
-                        </div>
-                        <div class="col-3">
-                          <button type="button" class="btn btn-outline-success">2</button>
-                        </div>
-                        <div class="col-3">
-                          <button type="button" class="btn btn-outline-success">3</button>
-                        </div>
-                        <div class="col-3">
-                          <button type="button" class="btn btn-outline-success">4</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+                  <button *ngFor="let reser of reservationsBooked" type="button" class="btn btn-outline-danger">
+                    {{reser}}
+                  </button>
                 </div>
                 <div *ngIf="bookingAvailabilityChecked ==='error'" class="text-danger"> Error comprobando la
                   disponibilidad ❌

@@ -16,7 +16,7 @@ import {UserService} from '../../shared/services/user/user.service';
 })
 export class BookingComponent implements OnInit {
   private reservations: Reservation[] = [];
-  private reservationsAvailables: Reservation[] = [];
+  private reservationsBooked: Reservation[] = [];
   private bookingForm: FormGroup;
   private booking = false;
   private bookingCompleted = false;
@@ -144,7 +144,7 @@ export class BookingComponent implements OnInit {
   }
 
   displayHoursAvailables(reservations: Reservation[]) {
-    this.reservationsAvailables = reservations;
+    this.reservationsBooked = reservations;
   }
 
 
