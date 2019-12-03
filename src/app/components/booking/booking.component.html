@@ -4,7 +4,8 @@
       <h2>Tus reservas</h2>
     </div>
     <div class="col ">
-      <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModalCenter">
+      <button type="button" (click)="restartForm()" class="btn btn-primary mr-2" data-toggle="modal"
+              data-target="#exampleModalCenter">
         Nueva reserva
       </button>
       <button type="button" (click)="deleteBookings()" class="btn btn-primary btn-danger "> Eliminar reservas</button>
@@ -18,12 +19,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0 shadow-lg">
         <div class="modal-header border-bottom-0">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span  aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <form [formGroup]="bookingForm" (ngSubmit)="submitBookingForm()"
+        <div class="modal-body my-4">
+          <form [formGroup]="bookingForm"
                 id="bookingForm" class=" form-signin p-3 m-auto w-100">
             <div *ngIf="!booking && !bookingCompleted">
               <h1 class="h3 mb-3 font-weight-normal text-center">Nueva reserva</h1>
@@ -74,25 +75,6 @@
                 </div>
               </div>
 
-<!--              <label for="reservationHour" class="sr-only">Hora</label>-->
-<!--              <input type="text" id="reservationHour" class="form-control my-2 p-2 h-auto"-->
-<!--                     placeholder="Hora de la reserva"-->
-<!--                     formControlName="reservationHour" onfocus="(this.type='number')"-->
-<!--                     [ngClass]="{'is-valid': bookingForm.get('reservationHour').valid , 'is-invalid':-->
-<!--                        !bookingForm.get('reservationHour').valid  && (bookingForm.get('reservationHour').dirty-->
-<!--                        || bookingForm.get('reservationHour').touched)}">-->
-<!--              <div *ngIf="bookingForm.get('reservationHour').errors?.required  &&-->
-<!--                        (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched)"-->
-<!--                   class="text-danger"> La hora es requerida.-->
-<!--              </div>-->
-<!--              <div *ngIf="!bookingForm.get('reservationHour').valid  &&-->
-<!--                  (bookingForm.get('reservationHour').dirty || bookingForm.get('reservationHour').touched) "-->
-<!--                   class="text-danger"> Hora no válida (10 - 21).-->
-<!--              </div>-->
-
-
-<!--              <button [disabled]="!bookingForm.valid" class="btn btn-primary btn-block my-3" type="submit">Reservar-->
-<!--              </button>-->
             </div>
             <div *ngIf="booking" class="text-center">
               <div class="spinner-grow text-primary m-5" role="status">
@@ -102,22 +84,16 @@
             </div>
 
             <div id="alertRegisterCorrect" class="alert alert-success alert-dismissible fade show alertHidden"
-                 role="alert"> ¡Bienvenido! ✔ Ya puedes <b><a [routerLink]="['/booking']">reservar</a></b> una pista.
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                 role="alert"> ¡Enhorabuena! ✔ Has reservado la pista con éxito.
+
             </div>
             <div id="alertRegisterInvalid" class="alert alert-warning alert-dismissible fade show alertHidden"
-                 role="alert">ID de Usuario o contraseña no v&aacute;lidos ❌
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                 role="alert">La sesión ya no es válida
+
             </div>
             <div id="alertRegisterFailed" class="alert alert-danger alert-dismissible fade show alertHidden"
-                 role="alert">Login erróneo, por favor inténtalo de nuevo más tarde.
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                 role="alert">Ha habido un error al reservar. por favor inténtalo de nuevo más tarde.
+
             </div>
           </form>
         </div>

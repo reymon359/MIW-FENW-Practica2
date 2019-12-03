@@ -56,7 +56,13 @@ export class BookingComponent implements OnInit {
     this.getReservations();
   }
 
+  restartForm() {
+    this.bookingCompleted = false;
+    this.displayAlert('submitAlerts');
+  }
+
   getReservations() {
+
     this.reservationService.getUserReservations().subscribe((data: any) => {
       this.reservations = data.body;
     }, (error) => {
@@ -80,35 +86,31 @@ export class BookingComponent implements OnInit {
   }
 
   submitBookingForm(hour, court) {
-    console.log({hour, court});
     this.displayAlert('submitAlerts');
     this.booking = true;
     const date = new Date(this.bookingForm.get('reservationDate').value)
       .setHours(hour);
-    console.log(date);
-    console.log(date.toString());
     setTimeout(() => {
       this.reservationService.reserve(court, date)
         .subscribe((data: any) => {
             console.log(data);
-            // this.logging = false;
-            // if (data.status === 200) {
-            //   this.displayAlert('Correct');
-            //   this.userService.saveUserToken(data.body);
-            //   this.loginCompleted = true;
-            //   this.loginForm.reset();
-            // } else {
-            //   this.displayAlert('Failed');
-            // }
+            this.booking = false;
+            this.bookingCompleted = true;
+            if (data.status === 201) {
+              this.displayAlert('Correct');
+              this.bookingForm.reset();
+              this.getReservations();
+            } else {
+              this.displayAlert('Failed');
+            }
           }, (error) => {
-            // this.logging = false;
-            // if (error.error === 'invalid username/password supplied') {
-            //   this.displayAlert('Invalid');
-            // } else if (error.error === 'no username or password') {
-            //   this.displayAlert('Invalid');
-            // } else {
-            //   this.displayAlert('Failed');
-            // }
+            this.booking = false;
+            if (error.status === 401) {
+              this.displayAlert('Invalid');
+              this.userService.tokenInvalid();
+            } else {
+              this.displayAlert('Failed');
+            }
             console.error(error);
           }
         );
