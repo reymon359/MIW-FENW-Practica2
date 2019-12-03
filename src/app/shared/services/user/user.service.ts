@@ -90,7 +90,7 @@ export class UserService {
   }
 
   isLoggedIn() {
-    if (this.getUserToken() !== null) {
+    if (this.getUserToken() !== '') {
       this.fireIsLoggedIn.emit(true);
       return true;
     } else {

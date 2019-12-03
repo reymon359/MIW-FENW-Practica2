@@ -12,7 +12,8 @@
       <button type="button" (click)="deleteBookings()" class="btn btn-primary btn-danger "
               [disabled]="this.reservations.length == 0" data-target="#exampleModalCenter"
               [title]="this.reservations.length == 0 ? 'No hay reservas que eliminar': '' ">
-        Eliminar reservas</button>
+        Eliminar reservas
+      </button>
     </div>
   </div>
 
@@ -26,7 +27,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body my-4">
+        <div class="modal-body mb-4">
           <form [formGroup]="bookingForm"
                 id="bookingForm" class=" form-signin p-3 m-auto w-100">
             <div *ngIf="!booking && !bookingCompleted">
@@ -50,7 +51,8 @@
                 Comprobando Disponibilidad
               </div>
 
-              <div *ngIf="!checkingbookingAvailability &&  bookingForm.get('reservationDate').dirty">
+              <div *ngIf="!checkingbookingAvailability &&  bookingForm.get('reservationDate').dirty
+              && bookingForm.get('reservationDate').valid">
                 <div *ngIf="bookingAvailabilityChecked ==='found'">
                   <div class="row">
                     <div class="col">Hora</div>
@@ -120,6 +122,7 @@
         </tr>
         </thead>
         <tbody>
+
         <tr *ngFor="let reservation of reservations">
           <th scope="row">{{reservation.rsvId}}</th>
           <td>{{reservation.rsvday}}</td>
@@ -128,6 +131,9 @@
         </tr>
         </tbody>
       </table>
+      <div *ngIf="reservations.length === 0" class="alert alert-warning" role="alert">
+        Aun no tienes reservas. Haz click en <b>Nueva Reserva</b> para reservar una pista.
+      </div>
     </div>
   </div>
 </div>
