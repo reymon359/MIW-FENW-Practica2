@@ -3,12 +3,7 @@ import {Reservation} from '../../shared/models/index.model';
 import {ReservationService} from '../../shared/services/reservation/reservation.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../shared/services/user/user.service';
-// this.reservations = [
-//   {rsvId: 925, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
-//   {rsvId: 926, courtId: 2, rsvdateTime: 1544529600000, rsvday: '13/12/2018', rsvtime: '13:00'},
-//   {rsvId: 927, courtId: 1, rsvdateTime: 1544529600000, rsvday: '14/12/2018', rsvtime: '12:00'},
-//   {rsvId: 928, courtId: 4, rsvdateTime: 1544529600000, rsvday: '12/12/2018', rsvtime: '13:00'},
-// ];
+
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -24,7 +19,7 @@ export class BookingComponent implements OnInit {
   private checkingbookingAvailability = false;
   private bookingAvailabilityChecked = '';
   private alerts = ['Correct', 'Invalid', 'Failed'];
-  private hours = ['10:00', '11:00', '12:00'];
+  private loadingBookings = false;
 
   constructor(private reservationService: ReservationService,
               private  userService: UserService) {
@@ -45,7 +40,6 @@ export class BookingComponent implements OnInit {
     // Detect reservationDate changes
     this.bookingForm.get('reservationDate').valueChanges
       .subscribe(data => {
-        console.log(data);
         if (this.bookingForm.get('reservationDate').valid) {
           this.checkBookingAvailability(data);
         }
@@ -62,8 +56,9 @@ export class BookingComponent implements OnInit {
   }
 
   getReservations() {
-
+    this.loadingBookings = true;
     this.reservationService.getUserReservations().subscribe((data: any) => {
+      this.loadingBookings = false;
       this.reservations = data.body;
     }, (error) => {
       if (error.status === 401) {
@@ -93,7 +88,6 @@ export class BookingComponent implements OnInit {
     setTimeout(() => {
       this.reservationService.reserve(court, date)
         .subscribe((data: any) => {
-            console.log(data);
             this.booking = false;
             this.bookingCompleted = true;
             if (data.status === 201) {
@@ -138,7 +132,6 @@ export class BookingComponent implements OnInit {
             } else {
               this.bookingAvailabilityChecked = 'error';
             }
-            // console.error(error);
           }
         );
     }, 1000);
@@ -147,7 +140,6 @@ export class BookingComponent implements OnInit {
   displayHoursAvailables(reservations) {
     this.reservationsBooked = reservations.map((r: any) =>
       Number(r.rsvtime.split(':')[0]) * 10 + Number(r.courtId));
-    console.log(this.reservationsBooked);
   }
 
 
@@ -163,13 +155,23 @@ export class BookingComponent implements OnInit {
   }
 
   deleteBookings() {
+    this.loadingBookings = true;
     this.reservationService.delete()
       .subscribe((data: any) => {
-          console.log(data);
-
-        }, (error) => {
+        this.loadingBookings = false;
+        if (data.status === 204) {
+          this.getReservations();
+        } else {
+          console.error(data);
+        }
+      }, (error: any) => {
+        console.error(error);
+        this.loadingBookings = false;
+        if (error.status === 401) {
+          this.userService.tokenInvalid();
+        } else {
           console.error(error);
         }
-      );
+      });
   }
 }

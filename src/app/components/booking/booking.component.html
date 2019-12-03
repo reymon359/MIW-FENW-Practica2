@@ -85,15 +85,12 @@
 
             <div id="alertRegisterCorrect" class="alert alert-success alert-dismissible fade show alertHidden"
                  role="alert"> ¡Enhorabuena! ✔ Has reservado la pista con éxito.
-
             </div>
             <div id="alertRegisterInvalid" class="alert alert-warning alert-dismissible fade show alertHidden"
-                 role="alert">La sesión ya no es válida
-
+                 role="alert">La sesión ya no es válida.
             </div>
             <div id="alertRegisterFailed" class="alert alert-danger alert-dismissible fade show alertHidden"
                  role="alert">Ha habido un error al reservar. por favor inténtalo de nuevo más tarde.
-
             </div>
           </form>
         </div>
@@ -105,7 +102,12 @@
   <!--User Reservations Table-->
   <div class="row">
     <div class="col text-center">
-      <table class="table table-borderless">
+      <div *ngIf="loadingBookings" class="d-flex justify-content-center my-5">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <table  *ngIf="!loadingBookings" class="table table-borderless">
         <thead>
         <tr>
           <th scope="col">ID</th>
